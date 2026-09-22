@@ -73,3 +73,24 @@ export default defineConfig([
 ])
 
 ```
+
+---
+
+## Data & backend connection (SIMS)
+
+All numbers and lists in the UI come from mock data, not from the components.
+
+| Where | What |
+| --- | --- |
+| `src/types/index.ts` | Data shapes — the contract the backend must return |
+| `src/mocks/data.ts` | Mock values (match the Figma design) — edit these to change what's shown |
+| `src/services/index.ts` | One function per endpoint; returns mocks or calls the API |
+| `src/hooks/queries.ts` | React Query hooks the components use |
+| `.env.example` | `VITE_USE_MOCKS` and `VITE_API_URL` |
+
+**To connect the backend:** copy `.env.example` to `.env`, set `VITE_USE_MOCKS=false`
+and `VITE_API_URL` to your API, and make each endpoint in `src/services/index.ts`
+return the matching type. No component changes needed.
+
+Static site copy (landing nav links, showcase tiles, footer links) stays in
+`src/components/landing/data.ts` since it isn't backend data.
