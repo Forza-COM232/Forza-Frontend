@@ -7,6 +7,15 @@ import type {
   AverageSales,
   Category,
   Contract,
+  DemandForecast,
+  ExpiringBatch,
+  GrossMargin,
+  HoldingCost,
+  InventoryTurnover,
+  LeadTimeTrend,
+  Product,
+  StockMovement,
+  SupplierPerformance,
   CurrentUser,
   DashboardSummary,
   InventoryHealth,
@@ -67,16 +76,24 @@ export const mockInventoryUpdates: InventoryUpdates = Array.from({ length: 4 }, 
 );
 
 export const mockCategories: Category[] = [
-  { id: "c-1", name: "Meat & Poultry", productCount: 42 },
-  { id: "c-2", name: "Dairy", productCount: 35 },
-  { id: "c-3", name: "Beverages", productCount: 51 },
-  { id: "c-4", name: "Fresh Produce", productCount: 64 },
-  { id: "c-5", name: "Pantry Staples", productCount: 38 },
-  { id: "c-6", name: "Bakery", productCount: 17 },
-  { id: "c-7", name: "Frozen Goods", productCount: 22 },
-  { id: "c-8", name: "Snacks", productCount: 19 },
-  { id: "c-9", name: "Household", productCount: 12 },
-  { id: "c-10", name: "Personal Care", productCount: 10 },
+  { id: "c-1", name: "Fresh Vegetables", description: "Leafy greens, root veggies & more", productCount: 248310 },
+  { id: "c-2", name: "Fruits", description: "Seasonal & exotic fruits", productCount: 196420 },
+  { id: "c-3", name: "Meat & Poultry", description: "Fresh cuts & frozen options", productCount: 172905 },
+  
+];
+
+export const mockProducts: Product[] = [
+  { id: "p-1", name: "Fresh Milk 1L", categoryId: "c-5", sku: "D001", stock: 160, price: 127, status: "low_stock" },
+  
+];
+
+export const mockExpiringBatches: ExpiringBatch[] = [
+  { id: "b-1", batchCode: "BT0352", categoryId: "c-6", sku: "B001", expiresOn: "2026-10-02" },
+  { id: "b-2", batchCode: "BT0334", categoryId: "c-3", sku: "M001", expiresOn: "2026-10-04" },
+  { id: "b-3", batchCode: "BT0341", categoryId: "c-5", sku: "D001", expiresOn: "2026-10-06" },
+  { id: "b-4", batchCode: "BT0360", categoryId: "c-4", sku: "S001", expiresOn: "2026-10-11" },
+  { id: "b-5", batchCode: "BT0371", categoryId: "c-8", sku: "J001", expiresOn: "2026-11-20" },
+  { id: "b-6", batchCode: "BT0388", categoryId: "c-9", sku: "Z001", expiresOn: "2027-03-15" },
 ];
 
 export const mockContracts: Contract[] = [
@@ -102,3 +119,66 @@ export const mockLandingStats: LandingStat[] = [
   { id: "ls-1", percent: 84, label: "Reduction in manual PO drafting time" },
   { id: "ls-2", percent: -30, label: "Lower warehouse carrying costs" },
 ];
+
+// ── Analytics ───────────────────────────────────────────────
+
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+export const mockInventoryTurnover: InventoryTurnover = {
+  labels: [2020, 2021].flatMap((y) => MONTHS.map((_, m) => `${y}-${String(m + 1).padStart(2, "0")}`)),
+  series: [
+    {
+      name: "Turnover",
+      values: [
+        110, 60, 150, 180, 220, 160, 190, 120, 80, 40, 10, 0,
+        -60, -40, -120, -90, -170, -150, -230, -210, -300, -350, -410, -380,
+      ],
+    },
+  ],
+  targetRange: { min: -200, max: 0 },
+};
+
+export const mockGrossMargin: GrossMargin = {
+  labels: MONTHS.slice(0, 6),
+  series: [{ name: "Gross margin %", values: [34, 30, 17, 21, 28, 40] }],
+};
+
+export const mockLeadTime: LeadTimeTrend = {
+  labels: MONTHS,
+  series: [
+    { name: "2023", values: [1, 2, 8, 14, 20, 24, 27, 26, 21, 15, 9, 3] },
+    { name: "2022", values: [5, 6, 9, 13, 17, 20, 20, 19, 15, 10, 7, 6] },
+  ],
+};
+
+export const mockHoldingCost: HoldingCost = {
+  labels: MONTHS.slice(0, 7),
+  series: [{ name: "Holding cost (₱k)", values: [55, 195, 100, 150, 110, 60, 95] }],
+};
+
+export const mockStockMovement: StockMovement = {
+  labels: ["2017", "2018", "2019", "2020", "2021", "2022", "2023"],
+  series: [
+    { name: "Stock in", values: [95, 100, 135, 105, 100, 95, 110] },
+    { name: "Stock out", values: [40, 55, 65, 40, 55, 60, 65] },
+  ],
+};
+
+export const mockDemand: DemandForecast = {
+  labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+  series: [
+    { name: "Actual orders", values: [40, 45, 52, 70, 88, 120, 160] },
+    { name: "Forecast", values: [42, 48, 50, 75, 95, 130, 185] },
+  ],
+};
+
+export const mockSupplierPerformance: SupplierPerformance = {
+  labels: [
+    "Luzon Meat Packers",
+    "Metro Dairy Wholesale",
+    "Visayas Beverage Distributors",
+    "Mindanao Fresh Produce",
+    "Bulacan Bakery Supply",
+  ],
+  series: [{ name: "On-time deliveries %", values: [35, 22, 18, 15, 10] }],
+};
