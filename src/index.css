@@ -166,3 +166,83 @@ p {
     @apply bg-background text-foreground;}
   html {
     @apply font-figtree;}}
+/* ── Landing page entrance ───────────────────────────────────
+   One sequence on load, told like a checkout: a red barcode-scanner line
+   sweeps across INVENTORY and reveals it, the word "beeps" (a quick glow),
+   the grocery bag settles in, then the category tiles are unpacked.
+   Keyframes only define the in-between states, so with reduced motion
+   (animation: none) the text shows and the scanner stays hidden. */
+@keyframes landing-reveal {
+  from { clip-path: inset(-10% 100% -10% 0); }
+  to { clip-path: inset(-10% 0 -10% 0); }
+}
+@keyframes landing-scan {
+  0% { opacity: 1; transform: translateX(0); }
+  92% { opacity: 1; transform: translateX(100%); }
+  100% { opacity: 0; transform: translateX(100%); }
+}
+@keyframes landing-beep {
+  40% { text-shadow: 0 0 28px rgba(214, 40, 41, 0.9), 0 0 2px #fff; }
+}
+@keyframes landing-glow {
+  from { opacity: 0; }
+}
+@keyframes landing-bag {
+  from { opacity: 0; transform: translateY(56px) scale(0.94); }
+  70% { opacity: 1; transform: translateY(-6px) scale(1.01); }
+}
+@keyframes landing-tile {
+  from { opacity: 0; transform: translateY(28px) rotate(var(--tile-tilt, 0deg)); }
+}
+
+/* the word is revealed in step with the scanner line (same timing) */
+.landing-scan-text {
+  animation:
+    landing-reveal 900ms cubic-bezier(0.45, 0, 0.55, 1) 200ms both,
+    landing-beep 450ms ease-out 1100ms;
+}
+/* full-width track; the line sits on its left edge and the track slides right */
+.landing-scanner {
+  position: absolute;
+  inset: -6% 0;
+  opacity: 0;
+  pointer-events: none;
+  animation: landing-scan 900ms cubic-bezier(0.45, 0, 0.55, 1) 200ms both;
+}
+.landing-scanner::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 -2px;
+  width: 3px;
+  border-radius: 2px;
+  background: #ff4b4b;
+  box-shadow: 0 0 12px 2px rgba(255, 60, 60, 0.85), 0 0 40px 8px rgba(214, 40, 41, 0.45);
+}
+/* soft red light trailing behind the line */
+.landing-scanner::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 -90px;
+  width: 90px;
+  background: linear-gradient(to right, transparent, rgba(255, 75, 75, 0.18));
+}
+.landing-glow {
+  animation: landing-glow 1200ms ease-out both;
+}
+.landing-bag {
+  animation: landing-bag 900ms cubic-bezier(0.22, 1, 0.36, 1) 950ms both;
+}
+.landing-tile {
+  animation: landing-tile 600ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(1550ms + var(--i, 0) * 130ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-scan-text,
+  .landing-scanner,
+  .landing-glow,
+  .landing-bag,
+  .landing-tile {
+    animation: none;
+  }
+}

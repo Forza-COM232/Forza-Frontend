@@ -10,7 +10,7 @@ export const LandingPage = () => {
       {/* red glow behind the hero */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-[1100px] bg-[radial-gradient(ellipse_55%_45%_at_50%_42%,#8a2122_0%,rgba(122,32,33,0.6)_45%,transparent_100%)]"
+        className="landing-glow pointer-events-none absolute inset-x-0 top-0 h-[1100px] bg-[radial-gradient(ellipse_55%_45%_at_50%_42%,#8a2122_0%,rgba(122,32,33,0.6)_45%,transparent_100%)]"
       />
       <div className="relative">
         <Navbar />

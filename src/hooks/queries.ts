@@ -4,14 +4,24 @@
  */
 import { useQuery } from "@tanstack/react-query";
 import * as api from "@/services";
+import { useSelectedDate } from "@/lib/selected-date";
 
-// Temporary until there's a year picker state/store
-export const DEFAULT_YEAR = 2023;
+export { DEFAULT_YEAR } from "@/lib/selected-date";
+
+/** Year picked in the navbar calendar (pass a year to a hook to override it) */
+const useYear = (override?: number) => {
+  const { date } = useSelectedDate();
+  return override ?? date.getFullYear();
+};
 
 export const useCurrentUser = () => useQuery({ queryKey: ["me"], queryFn: api.getCurrentUser });
 
-export const useDashboardSummary = (year = DEFAULT_YEAR) =>
-  useQuery({ queryKey: ["dashboard-summary", year], queryFn: () => api.getDashboardSummary(year) });
+export const useFiscalYears = () => useQuery({ queryKey: ["fiscal-years"], queryFn: api.getFiscalYears });
+
+export const useDashboardSummary = (yearOverride?: number) => {
+  const year = useYear(yearOverride);
+  return useQuery({ queryKey: ["dashboard-summary", year], queryFn: () => api.getDashboardSummary(year) });
+};
 
 export const useSupplyChannels = () =>
   useQuery({ queryKey: ["supply-channels"], queryFn: api.getSupplyChannels });
@@ -22,8 +32,10 @@ export const useLowStockProducts = () =>
 export const useInventoryHealth = () =>
   useQuery({ queryKey: ["inventory-health"], queryFn: api.getInventoryHealth });
 
-export const useAverageSales = (year = DEFAULT_YEAR) =>
-  useQuery({ queryKey: ["average-sales", year], queryFn: () => api.getAverageSales(year) });
+export const useAverageSales = (yearOverride?: number) => {
+  const year = useYear(yearOverride);
+  return useQuery({ queryKey: ["average-sales", year], queryFn: () => api.getAverageSales(year) });
+};
 
 export const useInventoryUpdates = () =>
   useQuery({ queryKey: ["inventory-updates"], queryFn: api.getInventoryUpdates });

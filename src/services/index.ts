@@ -32,6 +32,9 @@ export const login = (employeeId: string, password: string): Promise<CurrentUser
         body: JSON.stringify({ employeeId, password }),
       });
 
+export const logout = (): Promise<void> =>
+  USE_MOCKS ? mockResponse(undefined) : http<void>("/auth/logout", { method: "POST" });
+
 export const getCurrentUser = () => get<CurrentUser>("/me", mock.mockCurrentUser);
 export const getFiscalYears = () => get<number[]>("/fiscal-years", mock.mockFiscalYears);
 
