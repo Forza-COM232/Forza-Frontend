@@ -1,6 +1,5 @@
 import { Navbar } from "@/components/landing/Navbar";
 import { Hero } from "@/components/landing/Hero";
-import { CategoryCards } from "@/components/landing/CategoryCards";
 import { LoginCard } from "@/components/login/LoginCard";
 
 /** Standalone sign-in screen: landing hero in the background, glass card on top */
@@ -16,7 +15,6 @@ export const LoginPage = () => {
       <div aria-hidden className="pointer-events-none relative select-none">
         <Navbar />
         <Hero />
-        <CategoryCards />
       </div>
 
       <main className="absolute inset-x-0 top-[clamp(9rem,19.5vw,17.5rem)] flex justify-center px-4">

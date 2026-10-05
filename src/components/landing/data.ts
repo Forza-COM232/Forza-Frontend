@@ -1,26 +1,14 @@
 /**
- * Static landing-page content (navigation, showcase tiles, footer links).
+ * Static landing-page content (navigation, footer links).
  * This is site copy, not backend data — anything the backend owns lives in
  * src/mocks/data.ts and is loaded through src/services + src/hooks.
  */
-import meat from "@/assets/images/meat.png";
-import butter from "@/assets/images/butter.png";
-import cola from "@/assets/images/cola.png";
-
 export type NavLink = { label: string; href: string };
 
 export const navLinks: NavLink[] = [
   { label: "Home", href: "#" },
   { label: "About Us", href: "#about" },
   { label: "Help", href: "#help" },
-];
-
-export type Category = { label: string; image: string };
-
-export const categories: Category[] = [
-  { label: "Meat", image: meat },
-  { label: "Butter", image: butter },
-  { label: "Cola", image: cola },
 ];
 
 export type FooterColumn = { title: string; links: NavLink[] };

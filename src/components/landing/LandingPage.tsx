@@ -1,5 +1,4 @@
 import { AboutSection } from "./AboutSection";
-import { CategoryCards } from "./CategoryCards";
 import { Footer } from "./Footer";
 import { Hero } from "./Hero";
 import { Navbar } from "./Navbar";
@@ -16,7 +15,6 @@ export const LandingPage = () => {
         <Navbar />
         <main>
           <Hero />
-          <CategoryCards />
           <AboutSection />
         </main>
         <Footer />
