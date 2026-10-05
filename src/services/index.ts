@@ -9,6 +9,15 @@ import type {
   AverageSales,
   Category,
   Contract,
+  DemandForecast,
+  ExpiringBatch,
+  GrossMargin,
+  HoldingCost,
+  InventoryTurnover,
+  LeadTimeTrend,
+  Product,
+  StockMovement,
+  SupplierPerformance,
   CurrentUser,
   DashboardSummary,
   InventoryHealth,
@@ -52,6 +61,25 @@ export const getInventoryUpdates = () =>
 
 // ── Inventory ───────────────────────────────────────────────
 export const getCategories = () => get<Category[]>("/categories", mock.mockCategories);
+export const getProducts = () => get<Product[]>("/products", mock.mockProducts);
+export const getExpiringBatches = () =>
+  get<ExpiringBatch[]>("/batches/expiring", mock.mockExpiringBatches);
+
+// ── Analytics ───────────────────────────────────────────────
+export const getInventoryTurnover = (year: number) =>
+  get<InventoryTurnover>(`/analytics/inventory-turnover?year=${year}`, mock.mockInventoryTurnover);
+export const getGrossMargin = (year: number) =>
+  get<GrossMargin>(`/analytics/gross-margin?year=${year}`, mock.mockGrossMargin);
+export const getLeadTime = (year: number) =>
+  get<LeadTimeTrend>(`/analytics/lead-time?year=${year}`, mock.mockLeadTime);
+export const getHoldingCost = (year: number) =>
+  get<HoldingCost>(`/analytics/holding-cost?year=${year}`, mock.mockHoldingCost);
+export const getStockMovement = () =>
+  get<StockMovement>("/analytics/stock-movement", mock.mockStockMovement);
+export const getDemand = (year: number) =>
+  get<DemandForecast>(`/analytics/demand?year=${year}`, mock.mockDemand);
+export const getSupplierPerformance = (year: number) =>
+  get<SupplierPerformance>(`/analytics/supplier-performance?year=${year}`, mock.mockSupplierPerformance);
 
 // ── Suppliers ───────────────────────────────────────────────
 export const getContracts = () => get<Contract[]>("/contracts", mock.mockContracts);

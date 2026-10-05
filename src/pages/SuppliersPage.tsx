@@ -4,7 +4,7 @@ import { Panel } from "@/components/common/Panel";
 import { FeatureCard } from "@/components/common/FeatureCard";
 import { ContactList } from "@/components/common/ContactList";
 import { useContracts, useSuppliers } from "@/hooks/queries";
-import { channelIcons } from "@/lib/channel-icons";
+import { contractTermLabels } from "@/lib/labels";
 
 export const SuppliersPage = () => {
   const { data: contracts = [] } = useContracts();
@@ -27,8 +27,7 @@ export const SuppliersPage = () => {
             <ContactList
               items={contracts.map((c) => ({
                 label: c.name,
-                caption: c.terms,
-                icon: channelIcons[c.type],
+                caption: contractTermLabels[c.terms],
               }))}
             />
           </Panel>

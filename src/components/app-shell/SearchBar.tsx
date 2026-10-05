@@ -2,8 +2,16 @@ import { useState } from "react";
 import { Search } from "lucide-react";
 import { icons } from "@/assets/icons";
 
-export const SearchBar = () => {
-  const [query, setQuery] = useState("");
+type SearchBarProps = {
+  /** pass value + onChange to control the search from a page (e.g. to filter a table) */
+  value?: string;
+  onChange?: (value: string) => void;
+};
+
+export const SearchBar = ({ value, onChange }: SearchBarProps) => {
+  const [local, setLocal] = useState("");
+  const query = value ?? local;
+  const setQuery = onChange ?? setLocal;
 
   return (
     <div className="flex items-center justify-center gap-8">
