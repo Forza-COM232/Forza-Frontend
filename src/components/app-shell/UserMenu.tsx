@@ -57,10 +57,7 @@ export const UserMenu = () => {
           role="menu"
           className="absolute right-0 top-full z-30 mt-2 w-40 rounded-lg border border-white/15 bg-[#5e2522] p-1 text-cream shadow-[0_12px_30px_rgba(0,0,0,0.3)]"
         >
-          {/* TODO: point this at the change-password screen once it exists */}
-          <button type="button" role="menuitem" className={item} onClick={close}>
-            Change password
-          </button>
+          
           <button
             type="button"
             role="menuitem"
