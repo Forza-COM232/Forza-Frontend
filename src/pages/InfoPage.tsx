@@ -13,7 +13,7 @@ export const InfoPage = () => {
   // footer links open these pages, so start at the top instead of the old scroll position
   useEffect(() => window.scrollTo(0, 0), [slug]);
 
-  if (!page) return <Navigate to="/" replace />;
+    if (!page) return <Navigate to="/" replace />;
 
   return (
     <div className="relative min-h-svh overflow-hidden bg-cocoa font-figtree">
