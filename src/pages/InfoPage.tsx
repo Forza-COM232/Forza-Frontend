@@ -11,9 +11,11 @@ export const InfoPage = () => {
   const page = infoPages[slug];
 
   // footer links open these pages, so start at the top instead of the old scroll position
-  useEffect(() => window.scrollTo(0, 0), [slug]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [slug]);
 
-    if (!page) return <Navigate to="/" replace />;
+  if (!page) return <Navigate to="/" replace />;
 
   return (
     <div className="relative min-h-svh overflow-hidden bg-cocoa font-figtree">
@@ -33,10 +35,10 @@ export const InfoPage = () => {
             Back to home
           </Link>
 
-          <h1 className="mt-8 font-display text-4xl text-cream md:text-5xl">{page.title}</h1>
+          <h1 className="mt-6 font-display text-4xl text-cream md:text-5xl">{page.title}</h1>
           <p className="mt-1 text-base text-cream/90 md:text-lg">{page.subtitle}</p>
 
-          <div className="mt-10 rounded-2xl border border-white/15 bg-white/5 px-6 py-7 text-sm leading-relaxed text-cream/90 md:px-8 md:text-base">
+          <div className="mt-8 rounded-2xl border border-white/15 bg-white/5 px-6 py-8 text-sm leading-relaxed text-cream/90 md:px-8 md:text-base">
             {page.body.map((line) => (
               <p key={line}>{line}</p>
             ))}

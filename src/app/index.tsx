@@ -7,6 +7,7 @@ import { DashboardPage } from "@/pages/DashboardPage";
 import { InventoryPage } from "@/pages/InventoryPage";
 import { SuppliersPage } from "@/pages/SuppliersPage";
 import { AnalyticsPage } from "@/pages/AnalyticsPage";
+import { InfoPage } from "@/pages/InfoPage";
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { staleTime: 60_000, retry: 1 } },
@@ -19,6 +20,7 @@ export const App = () => {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/info/:slug" element={<InfoPage />} />
 
           <Route element={<AppLayout />}>
             <Route path="/dashboard" element={<DashboardPage />} />

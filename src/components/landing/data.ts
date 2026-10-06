@@ -8,7 +8,7 @@ export type NavLink = { label: string; to?: string; href?: string };
 
 export const navLinks: NavLink[] = [
   { label: "Home", to: "/" },
-  { label: "About Us", href: "/#about" },
+  { label: "About Us", to: "/info/about" },
   { label: "Help", href: "#help" },
 ];
 
@@ -34,7 +34,7 @@ export const footerColumns: FooterColumn[] = [
   {
     title: "Company",
     links: [
-      { label: "About", href: "/#about" },
+      { label: "About", to: "/info/about" },
       { label: "Security", to: "/info/security" },
       { label: "Grocery Case Studies", to: "/info/grocery-case-studies" },
       { label: "Retail Contact", to: "/info/retail-contact" },
@@ -68,6 +68,14 @@ export const infoPages: Record<string, InfoPageContent> = {
     body: [
       "Call the IT Support Hotline at 02-8635-0751 or the Support Mobile at +63-917-555-4877.",
       "Email itsupport@sims.com.ph with your store branch, Employee ID and a short description of the problem.",
+    ],
+  },
+  about: {
+    title: "About",
+    subtitle: "SIMS is the inventory management system for our supermarket branches.",
+    body: [
+      "Inspired by the legacy of Robinsons Supermarket, SIMS helps bring fresh, healthy and high-quality choices to every household.",
+      "It connects the warehouse floor to the retail shelves, so staff can track stock, expiring items and suppliers in one place.",
     ],
   },
   security: {
