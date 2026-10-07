@@ -42,6 +42,45 @@ export const useInventoryUpdates = () =>
 
 export const useCategories = () => useQuery({ queryKey: ["categories"], queryFn: api.getCategories });
 
+export const useProducts = () => useQuery({ queryKey: ["products"], queryFn: api.getProducts });
+
+export const useExpiringBatches = () =>
+  useQuery({ queryKey: ["expiring-batches"], queryFn: api.getExpiringBatches });
+
+// ── Analytics ───────────────────────────────────────────────
+export const useInventoryTurnover = (yearOverride?: number) => {
+  const year = useYear(yearOverride);
+  return useQuery({ queryKey: ["inventory-turnover", year], queryFn: () => api.getInventoryTurnover(year) });
+};
+
+export const useGrossMargin = (yearOverride?: number) => {
+  const year = useYear(yearOverride);
+  return useQuery({ queryKey: ["gross-margin", year], queryFn: () => api.getGrossMargin(year) });
+};
+
+export const useLeadTime = (yearOverride?: number) => {
+  const year = useYear(yearOverride);
+  return useQuery({ queryKey: ["lead-time", year], queryFn: () => api.getLeadTime(year) });
+};
+
+export const useHoldingCost = (yearOverride?: number) => {
+  const year = useYear(yearOverride);
+  return useQuery({ queryKey: ["holding-cost", year], queryFn: () => api.getHoldingCost(year) });
+};
+
+export const useStockMovement = () =>
+  useQuery({ queryKey: ["stock-movement"], queryFn: api.getStockMovement });
+
+export const useDemand = (yearOverride?: number) => {
+  const year = useYear(yearOverride);
+  return useQuery({ queryKey: ["demand", year], queryFn: () => api.getDemand(year) });
+};
+
+export const useSupplierPerformance = (yearOverride?: number) => {
+  const year = useYear(yearOverride);
+  return useQuery({ queryKey: ["supplier-performance", year], queryFn: () => api.getSupplierPerformance(year) });
+};
+
 export const useContracts = () => useQuery({ queryKey: ["contracts"], queryFn: api.getContracts });
 
 export const useSuppliers = () => useQuery({ queryKey: ["suppliers"], queryFn: api.getSuppliers });

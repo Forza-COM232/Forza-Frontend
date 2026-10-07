@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 /**
  * Single switch between mock data and the real backend.
@@ -15,11 +15,32 @@ export const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:8000/ap
  */
 export const apiClient = axios.create({
   baseURL: API_URL,
+  timeout: 10_000, // give up after 10 seconds
   headers: {
+    Accept: "application/json",
     "Content-Type": "application/json",
   },
   withCredentials: true,
 });
+
+// Turn errors into readable messages (uses the backend's { message } if it sends one)
+apiClient.interceptors.response.use(
+  (response) => response,
+  (error: AxiosError<{ message?: string }>) => {
+    const status = error.response?.status;
+    const message =
+      error.response?.data?.message ??
+      (status ? `Request failed (${status})` : "Can't reach the server. Is the backend running?");
+    return Promise.reject(Object.assign(new Error(message), { status }));
+  },
+);
+
+// Helpers the services use
+export const apiGet = async <T>(path: string, params?: Record<string, string | number>) =>
+  (await apiClient.get<T>(path, { params })).data;
+
+export const apiPost = async <T>(path: string, body?: unknown) =>
+  (await apiClient.post<T>(path, body)).data;
 
 /** Resolve mock data after a short delay so loading states behave like a real request */
 export const mockResponse = <T>(data: T, delayMs = 300): Promise<T> =>
@@ -31,7 +52,7 @@ export const mockResponse = <T>(data: T, delayMs = 300): Promise<T> =>
  */
 export async function http<T>(path: string, init?: RequestInit): Promise<T> {
   const method = (init?.method || "GET").toLowerCase();
-  let data: any = undefined;
+  let data: unknown = undefined;
 
   if (init?.body) {
     try {
@@ -45,7 +66,7 @@ export async function http<T>(path: string, init?: RequestInit): Promise<T> {
     url: path,
     method,
     data,
-    headers: init?.headers as any,
+    headers: init?.headers as Record<string, string> | undefined,
   });
 
   return response.data;

@@ -1,6 +1,7 @@
 import cartIcon from "@/assets/images/cart-icon.png";
 import { Link } from "react-router";
 import { navLinks } from "./data";
+import { SiteLink } from "./SiteLink";
 
 export const Navbar = () => {
   return (
@@ -14,13 +15,11 @@ export const Navbar = () => {
         </a>
         <nav className="hidden items-center gap-16 sm:flex">
           {navLinks.map((link) => (
-            <a
+            <SiteLink
               key={link.label}
-              href={link.href}
+              link={link}
               className="text-lg font-bold text-cream transition-opacity hover:opacity-80 md:text-2xl"
-            >
-              {link.label}
-            </a>
+            />
           ))}
         </nav>
       </div>

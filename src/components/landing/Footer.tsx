@@ -1,5 +1,7 @@
 import logoMark from "@/assets/images/logo-mark.png";
+import { Link } from "react-router";
 import { footerColumns } from "./data";
+import { SiteLink } from "./SiteLink";
 
 export const Footer = () => {
   return (
@@ -9,12 +11,12 @@ export const Footer = () => {
     >
       <div className="mx-auto grid w-full max-w-[1288px] gap-10 px-6 pb-24 pt-6 sm:grid-cols-2 md:pb-24 lg:grid-cols-[203fr_119fr_179fr_119fr] lg:gap-x-0">
         <div>
-          <a href="#" className="flex items-center gap-3">
+          <Link to="/" className="flex items-center gap-3">
             <span className="grid size-7 place-items-center rounded-md bg-maroon">
               <img src={logoMark} alt="" className="size-4" />
             </span>
             <span className="font-brand text-lg font-black text-cream">SIMS</span>
-          </a>
+          </Link>
           <p className="mt-5 max-w-[280px] text-xs leading-relaxed text-cream">
             Real-time supermarket operations command console. Turn shrinkage into absolute
             growth.
@@ -27,12 +29,10 @@ export const Footer = () => {
             <ul className="mt-4 flex flex-col gap-3">
               {column.links.map((link) => (
                 <li key={link.label}>
-                  <a
-                    href={link.href}
+                  <SiteLink
+                    link={link}
                     className="text-xs text-cream/90 transition-colors hover:text-white"
-                  >
-                    {link.label}
-                  </a>
+                  />
                 </li>
               ))}
             </ul>
